@@ -1,14 +1,13 @@
 <?php
-// app/Models/User.php
+
+// app/Models/Kuisioner.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Kuisioner extends Model
 {
-    protected $fillable = [
-        'nama', 'alamat', 'nomor_hp', 'pendidikan_terakhir', 'pekerjaan',
-    ];
+    protected $fillable = ['pertanyaan'];
 
     public function jawabanKuisioners()
     {
