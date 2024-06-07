@@ -33,7 +33,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="">
                 <i class="bi bi-card-list"></i>
-                <span>User</span>
+                <span>Grafik Pengguna</span>
             </a>
         </li>
 

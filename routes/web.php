@@ -26,27 +26,35 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Survey\SurveyController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth:admin');
 
-Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
-Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth:admin');
+    Route::get('/user/biodata', [UserController::class, 'showBiodataForm'])->name('user.biodata');
+    Route::post('/user/biodata', [UserController::class, 'submitBiodata'])->name('user.biodata.submit');
+    Route::get('/user/bidang', [UserController::class, 'showBidangForm'])->name('user.bidang');
+    Route::post('/user/bidang', [UserController::class, 'submitBidang'])->name('user.bidang.submit');
+    Route::get('/user/layanan', [UserController::class, 'showLayananForm'])->name('user.layanan');
+    Route::post('/user/layanan', [UserController::class, 'submitLayanan'])->name('user.layanan.submit');
+    Route::get('/user/kuisioner', [UserController::class, 'showKuisionerForm'])->name('user.kuisioner');
+    Route::post('/user/kuisioner', [UserController::class, 'submitKuisioner'])->name('user.kuisioner.submit');
 
-Route::get('/user/biodata', [UserController::class, 'showBiodataForm'])->name('user.biodata');
-Route::post('/user/biodata', [UserController::class, 'submitBiodata'])->name('user.biodata.submit');
-Route::get('/user/bidang', [UserController::class, 'showBidangForm'])->name('user.bidang');
-Route::post('/user/bidang', [UserController::class, 'submitBidang'])->name('user.bidang.submit');
-Route::get('/user/layanan', [UserController::class, 'showLayananForm'])->name('user.layanan');
-Route::post('/user/layanan', [UserController::class, 'submitLayanan'])->name('user.layanan.submit');
-Route::get('/user/kuisioner', [UserController::class, 'showKuisionerForm'])->name('user.kuisioner');
-Route::post('/user/kuisioner', [UserController::class, 'submitKuisioner'])->name('user.kuisioner.submit');
+    //admin
 
-//admin
+    Route::get('/admin/bidang', [AdminController::class, 'showBidangForm'])->name('admin.bidang');
+    Route::post('/admin/bidang', [AdminController::class, 'storeBidang'])->name('admin.bidang.store');
 
-Route::get('/admin/bidang', [AdminController::class, 'showBidangForm'])->name('admin.bidang');
-Route::post('/admin/bidang', [AdminController::class, 'storeBidang'])->name('admin.bidang.store');
+    Route::get('/admin/layanan', [AdminController::class, 'showLayananForm'])->name('admin.layanan');
+    Route::post('/admin/layanan', [AdminController::class, 'storeLayanan'])->name('admin.layanan.store');
 
-Route::get('/admin/layanan', [AdminController::class, 'showLayananForm'])->name('admin.layanan');
-Route::post('/admin/layanan', [AdminController::class, 'storeLayanan'])->name('admin.layanan.store');
+    Route::get('/admin/kuisioner', [AdminController::class, 'showKuisionerForm'])->name('admin.kuisioner');
+    Route::post('/admin/kuisioner', [AdminController::class, 'storeKuisioner'])->name('admin.kuisioner.store');
 
-Route::get('/admin/kuisioner', [AdminController::class, 'showKuisionerForm'])->name('admin.kuisioner');
-Route::post('/admin/kuisioner', [AdminController::class, 'storeKuisioner'])->name('admin.kuisioner.store');
+    //grafik admin
+
+
+    // Route lainnya
+
+    Route::get('/admin/grafik', [AdminController::class, 'showGrafik'])->name('admin.grafik');
+});

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use DB;
 use App\Models\Bidang;
 use App\Models\Layanan;
 use App\Models\Kuisioner;
+use Illuminate\Http\Request;
+use App\Models\JawabanKuisioner;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -57,7 +59,7 @@ class AdminController extends Controller
     {
         $request->validate([
             'bidang_id' => 'required|exists:bidangs,id',
-            'nama_bidang' => 'required|string|max:255',
+            'nama_layanan' => 'required|string|max:255',
         ]);
 
         Layanan::create($request->all());
@@ -81,4 +83,12 @@ class AdminController extends Controller
 
         return redirect()->route('admin.kuisioner')->with('success', 'Pertanyaan berhasil ditambahkan.');
     }
+    //     public function showGrafik()
+    //     {
+    //         $jawabanData = JawabanKuisioner::select('jawaban', DB::raw('count(*) as total'))
+    //             ->groupBy('jawaban')
+    //             ->get();
+
+    //         return view('admin.grafik', compact('jawabanData'));
+    //     }
 }
