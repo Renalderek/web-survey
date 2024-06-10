@@ -31,10 +31,16 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
+    // bidang controller
     public function showBidangForm()
     {
         $bidangs = Bidang::all();
         return view('admin.bidang', compact('bidangs'));
+    }
+
+    public function create()
+    {
+        return view('admin.bidang.create');
     }
 
     public function storeBidang(Request $request)
@@ -43,17 +49,45 @@ class AdminController extends Controller
             'nama_bidang' => 'required|string|max:255',
         ]);
 
-        Bidang::create(['nama_bidang' => $request->nama_bidang]);
+        Bidang::create($request->all());
 
         return redirect()->route('admin.bidang')->with('success', 'Bidang berhasil ditambahkan.');
     }
 
+    public function show($id)
+    {
+        $bidang = Bidang::find($id);
+        return view('admin.bidang.show', compact('bidang'));
+    }
+    public function editBidang($id)
+    {
+        $bidang = Bidang::findOrFail($id);
+        return view('admin.bidang.edit', compact('bidang'));
+    }
+
+    public function updateBidang(Request $request, $id)
+    {
+        $bidang = Bidang::findOrFail($id);
+        $bidang->update($request->all());
+        return redirect()->route('admin.index')->with('success', 'Bidang berhasil diupdate.');
+    }
+    public function destroyBidang($id)
+    {
+        $bidang = Bidang::findOrFail($id);
+        $bidang->delete();
+        return redirect()->route('admin.bidang')->with('success', 'Pertanyaan kuisioner berhasil dihapus.');
+    }
+
+    // controller bidang berakhir 
+
+    // controller layanan mulai
     public function showLayananForm()
     {
         $bidangs = Bidang::all();
         $layanans = Layanan::with('bidang')->get();
         return view('admin.layanan', compact('bidangs', 'layanans'));
     }
+
 
     public function storeLayanan(Request $request)
     {
@@ -66,7 +100,23 @@ class AdminController extends Controller
 
         return redirect()->route('admin.layanan')->with('success', 'Layanan berhasil ditambahkan.');
     }
+    public function editLayanan($id)
+    {
+        $layanan = Layanan::findOrFail($id);
+        $bidangs = Bidang::all();
+        return view('admin.layanan.edit', compact('layanan', 'bidangs'));
+    }
 
+    public function updateLayanan(Request $request, $id)
+    {
+        $layanan = Layanan::findOrFail($id);
+        $layanan->update($request->all());
+        return redirect()->route('admin.index')->with('success', 'Layanan berhasil diupdate.');
+    }
+
+    // controller layanan berakhir
+
+    // controller kuisioner mulai
     public function showKuisionerForm()
     {
         $kuisioners = Kuisioner::all();
@@ -83,6 +133,27 @@ class AdminController extends Controller
 
         return redirect()->route('admin.kuisioner')->with('success', 'Pertanyaan berhasil ditambahkan.');
     }
+    public function editKuisioner($id)
+    {
+        $kuisioner = Kuisioner::findOrFail($id);
+        return view('admin.kuisioner.edit', compact('kuisioner'));
+    }
+
+    public function updateKuisioner(Request $request, $id)
+    {
+        $kuisioner = Kuisioner::findOrFail($id);
+        $kuisioner->update($request->all());
+        return redirect()->route('admin.index')->with('success', 'Pertanyaan kuisioner berhasil diupdate.');
+    }
+    public function destroyKuisioner($id)
+    {
+        $kuisioner = Kuisioner::findOrFail($id);
+        $kuisioner->delete();
+        return redirect()->route('admin.kuisioner')->with('success', 'Pertanyaan kuisioner berhasil dihapus.');
+    }
+    // controller kuisioner berakhir
+
+
     //     public function showGrafik()
     //     {
     //         $jawabanData = JawabanKuisioner::select('jawaban', DB::raw('count(*) as total'))

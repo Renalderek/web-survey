@@ -55,7 +55,19 @@
                                 <ul class="list-group">
                                     @foreach ($layanans as $layanan)
                                         <li class="list-group-item">{{ $layanan->nama_layanan }} (Bidang:
-                                            {{ $layanan->bidang->nama_bidang }})</li>
+                                            {{ $layanan->bidang->nama_bidang }})
+                                            <div>
+                                                <a href="{{ route('admin.layanan.edit', $layanan->id) }}"
+                                                    class="btn btn-sm btn-warning">Edit</a>
+                                                <form method="POST"
+                                                    action="{{ route('admin.layanan.delete', $layanan->id) }}"
+                                                    style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                                </form>
+                                            </div>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>

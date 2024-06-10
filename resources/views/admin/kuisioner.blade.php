@@ -49,9 +49,24 @@
                                         <h3>Daftar Pertanyaan</h3>
                                         <ul class="list-group">
                                             @foreach ($kuisioners as $kuisioner)
-                                                <li class="list-group-item">{{ $kuisioner->pertanyaan }}</li>
+                                                <li class="list-group-item">{{ $kuisioner->pertanyaan }}
+                                                    <div>
+                                                        <a href="{{ route('admin.kuisioner.edit', $kuisioner->id) }}"
+                                                            class="btn btn-sm btn-warning">Edit</a>
+                                                        <form method="POST"
+                                                            action="{{ route('admin.kuisioner.delete', $kuisioner->id) }}"
+                                                            style="display:inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn btn-sm btn-danger">Hapus</button>
+                                                        </form>
+                                                    </div>
+
+                                                </li>
                                             @endforeach
                                         </ul>
+
                                     </div>
                                 </div>
                             </div>

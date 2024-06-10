@@ -12,9 +12,11 @@
                             <label for="layanan">Layanan</label>
                             <select class="form-control" id="layanan" name="layanan_id" required>
                                 @foreach ($layanan as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama_layanan }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->nama_layanan }}<i
+                                            class="bi bi-chevron-down"></i></option>
                                 @endforeach
                             </select>
+
                         </div>
                         <button type="submit" class="btn btn-primary">Next</button>
                     </form>
