@@ -6,16 +6,16 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Admin\BidangController;
+use App\Http\Controllers\Admin\LayananController;
+use App\Http\Controllers\Admin\KuisionerController;
 
 
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:3661501165.
 // Route untuk admin
-Route::prefix('admin')->group(function () {
-    Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
-    Route::resource('bidang', AdminController::class);
-    Route::resource('layanan', AdminController::class);
-    Route::resource('kuisioner', AdminController::class);
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
 
 // Route untuk user
 Route::prefix('user')->group(function () {
@@ -26,12 +26,9 @@ Route::prefix('user')->group(function () {
 });
 
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
-Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
 
-// user contoroller
+// user controller
 
 Route::get('/user/biodata', [UserController::class, 'showBiodataForm'])->name('user.biodata');
 Route::post('/user/biodata', [UserController::class, 'submitBiodata'])->name('user.biodata.submit');
@@ -43,47 +40,30 @@ Route::get('/user/kuisioner', [UserController::class, 'showKuisionerForm'])->nam
 Route::post('/user/kuisioner', [UserController::class, 'submitKuisioner'])->name('user.kuisioner.submit');
 
 // admin login
-Route::middleware(['auth:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
 
+Route::get('admin/login', [AuthController::class, 'showLoginForm'])->name('admin.login');
+Route::post('admin/login', [AuthController::class, 'login']);
+Route::get('admin/dashboard', [AuthController::class, 'dashboard'])->name('admin.dashboard');
 
-    //admin
-    // bidang routes
+// Bidang routes
+Route::get('admin/bidang', [BidangController::class, 'showBidangForm'])->name('admin.bidang');
+Route::post('admin/bidang', [BidangController::class, 'storeBidang'])->name('admin.bidang.store');
+Route::get('admin/bidang/{id}/edit', [BidangController::class, 'editBidang'])->name('admin.bidang.edit');
+Route::put('admin/bidang/{id}', [BidangController::class, 'updateBidang'])->name('admin.bidang.update');
+Route::delete('admin/bidang/{id}', [BidangController::class, 'destroyBidang'])->name('admin.bidang.delete');
 
-    
-    
-    Route::get('/admin/bidang', [AdminController::class, 'showBidangForm'])->name('admin.bidang');
-    Route::post('/admin/bidang', [AdminController::class, 'storeBidang'])->name('admin.bidang.store');
-    Route::get('/admin/bidang/{id}/edit', [AdminController::class, 'editBidang'])->name('admin.bidang.edit');
-    Route::put('/admin/bidang/{id}', [AdminController::class, 'updateBidang'])->name('admin.bidang.update');
-    Route::delete('/admin/bidang/{id}', [AdminController::class, 'destroyBidang'])->name('admin.bidang.delete');
+// Layanan routes
+Route::get('admin/layanan', [LayananController::class, 'showLayananForm'])->name('admin.layanan');
+Route::post('admin/layanan', [LayananController::class, 'storeLayanan'])->name('admin.layanan.store');
+Route::get('admin/layanan/{id}/edit', [LayananController::class, 'editLayanan'])->name('admin.layanan.edit');
+Route::put('admin/layanan/{id}', [LayananController::class, 'updateLayanan'])->name('admin.layanan.update');
+Route::delete('admin/layanan/{id}', [LayananController::class, 'destroyLayanan'])->name('admin.layanan.delete');
 
-    // layanan routes
+// Kuisioner routes
+Route::get('admin/kuisioner', [KuisionerController::class, 'showKuisionerForm'])->name('admin.kuisioner');
+Route::post('admin/kuisioner', [KuisionerController::class, 'storeKuisioner'])->name('admin.kuisioner.store');
+Route::get('admin/kuisioner/{id}/edit', [KuisionerController::class, 'editKuisioner'])->name('admin.kuisioner.edit');
+Route::put('admin/kuisioner/{id}', [KuisionerController::class, 'updateKuisioner'])->name('admin.kuisioner.update');
+Route::delete('admin/kuisioner/{id}', [KuisionerController::class, 'destroyKuisioner'])->name('admin.kuisioner.delete');
 
-    Route::get('/admin/layanan', [AdminController::class, 'showLayananForm'])->name('admin.layanan');
-    Route::post('/admin/layanan', [AdminController::class, 'storeLayanan'])->name('admin.layanan.store');
-    Route::get('/admin/layanan/{id}/edit', [AdminController::class, 'editLayanan'])->name('admin.layanan.edit');
-    Route::put('/admin/layanan/{id}', [AdminController::class, 'updateLayanan'])->name('admin.layanan.update');
-    Route::delete('/admin/layanan/{id}', [AdminController::class, 'destroyLayanan'])->name('admin.layanan.delete');
-
-    // kuisioner routes
-
-    Route::get('/admin/kuisioner', [AdminController::class, 'showKuisionerForm'])->name('admin.kuisioner');
-    Route::post('/admin/kuisioner', [AdminController::class, 'storeKuisioner'])->name('admin.kuisioner.store');
-    Route::get('/admin/kuisioner/{id}/edit', [AdminController::class, 'editKuisioner'])->name('admin.kuisioner.edit');
-    Route::put('/admin/kuisioner/{id}', [AdminController::class, 'updateKuisioner'])->name('admin.kuisioner.update');
-    Route::delete('/admin/kuisioner/{id}', [AdminController::class, 'destroyKuisioner'])->name('admin.kuisioner.delete');
-    // routes/web.php
-
-
-
-
-
-    //grafik admin
-
-
-    // Route lainnya
-
-    // Route::get('/admin/grafik', [AdminController::class, 'showGrafik'])->name('admin.grafik');
-});

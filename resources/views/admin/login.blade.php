@@ -32,7 +32,7 @@
                                 </div>
 
                                 <form class="row g-3 needs-validation" novalidate method="POST"
-                                    action="{{ route('admin.login.submit') }}">
+                                    action="{{ route('admin.login') }}">
                                     @csrf
 
                                     <div class="col-12">

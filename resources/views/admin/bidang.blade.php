@@ -8,7 +8,8 @@
         <h1>Form Bidang</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
+<!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:2094511397. -->
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                 <li class="breadcrumb-item active">Bidang</li>
             </ol>
         </nav>

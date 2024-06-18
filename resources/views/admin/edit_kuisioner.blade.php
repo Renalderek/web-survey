@@ -32,7 +32,7 @@
                             @method('PUT')
                             <div class="form-group">
                                 <label for="namakuisioner">Kuisioner</label>
-                                <input type="text" class="form-control" id="namakuisioner" name="nama_kuisioner" value="{{ $bidang->nama_kuisioner }}" required>
+                                <input type="text" class="form-control" id="namakuisioner" name="pertanyaan" value="{{ $kuisioner->pertanyaan }}" required>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Update</button>
                         </form>

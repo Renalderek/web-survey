@@ -7,7 +7,6 @@ use App\Models\Bidang;
 use App\Models\Layanan;
 use App\Models\Kuisioner;
 use Illuminate\Http\Request;
-use App\Models\JawabanKuisioner;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
@@ -48,10 +47,12 @@ class AdminController extends Controller
 
         return redirect()->route('admin.bidang')->with('success', 'Bidang berhasil ditambahkan.');
     }
-    public function editBidang($id)
+
+    public function edit_Bidang($id)
     {
-        $bidang = Bidang::findOrFail($id);
-        return view('admin.edit_bidang', compact('bidang'));
+            $bidang = Bidang::findOrFail($id);
+            return view('admin.edit_bidang', compact('bidang'));
+      
     }
 
     public function updateBidang(Request $request, $id)
@@ -65,7 +66,7 @@ class AdminController extends Controller
         $bidang->save();
         return redirect()->route('admin.bidang')->with('success', 'Bidang berhasil di perbaharui.');
     }
-    public function destroyBidang($id)
+    public function destroy_Bidang($id)
     {
         $bidang = Bidang::findOrFail($id);
         $bidang->delete();
@@ -98,7 +99,7 @@ class AdminController extends Controller
     {
         $layanan = Layanan::findOrFail($id);
         $bidangs = Bidang::all();
-        return view('admin.layanan.edit', compact('layanan', 'bidangs'));
+        return view('admin.edit_layanan', compact('layanan', 'bidangs'));
     }
 
     public function updateLayanan(Request $request, $id)
@@ -141,7 +142,7 @@ class AdminController extends Controller
     public function editKuisioner($id)
     {
         $kuisioner = Kuisioner::findOrFail($id);
-        return view('admin.kuisioner.edit', compact('kuisioner'));
+        return view('admin.edit_kuisioner', compact('kuisioner'));
     }
 
     public function updateKuisioner(Request $request, $id)
