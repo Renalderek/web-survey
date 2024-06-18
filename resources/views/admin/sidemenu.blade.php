@@ -31,18 +31,23 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="">
+            <a class="nav-link collapsed" href="{{ route('admin.grafik') }}">
                 <i class="bi bi-card-list"></i>
                 <span>Grafik Pengguna</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
-                <i class="bi bi-box-arrow-in-right"></i>
-                <span>LOGOUT</span>
-            </a>
-        </li><!-- End Logout Page Nav -->
+            <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                @csrf
+                <button type="submit" class="nav-link collapsed"
+                    style="border: none; background: none; padding: 0; cursor: pointer;">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>LOGOUT</span>
+                </button>
+            </form>
+        </li>
+        {{-- logout --}}
     </ul>
 
 </aside>

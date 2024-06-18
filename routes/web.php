@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\BidangController;
 use App\Http\Controllers\Admin\LayananController;
 use App\Http\Controllers\Admin\KuisionerController;
+use App\Http\Controllers\ChartController;
 
 
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:3661501165.
@@ -65,3 +66,8 @@ Route::get('admin/kuisioner/{id}/edit', [KuisionerController::class, 'editKuisio
 Route::put('admin/kuisioner/{id}', [KuisionerController::class, 'updateKuisioner'])->name('admin.kuisioner.update');
 Route::delete('admin/kuisioner/{id}', [KuisionerController::class, 'destroyKuisioner'])->name('admin.kuisioner.delete');
 
+//  grafik route
+
+
+Route::get('/admin/grafik', [ChartController::class, 'index'])->name('admin.grafik');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

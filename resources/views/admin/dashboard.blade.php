@@ -23,11 +23,12 @@
                             <div class="card-body">
                                 <h5 class="card-title">Responden <span>| Saat ini</span></h5>
                                 <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <div
+                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-people"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{{ $userCount }} User</h6>
+                                        <h6>{{ $userCount }} Pengguna</h6>
                                     </div>
                                 </div>
                             </div>
