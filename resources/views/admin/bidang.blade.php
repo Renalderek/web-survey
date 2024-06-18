@@ -59,13 +59,13 @@
                                                                 <div>
                                                                     <a href="{{ route('admin.bidang.edit', $bidang->id) }}"
                                                                         class="btn btn-sm btn-warning">Edit</a>
-                                                                    <form method="POST"
+                                                                    <form id="deleteForm" method="POST"
                                                                         action="{{ route('admin.bidang.delete', $bidang->id) }}"
                                                                         style="display:inline;">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="btn btn-sm btn-danger">Hapus</button>
+                                                                        <button onclick="confirmDelete()" class="btn btn-sm btn-danger">Hapus</button>
+
                                                                     </form>
                                                                 </div>
 
@@ -91,3 +91,12 @@
 </main>
 
 @include('admin.footer');
+<script>
+    function confirmDelete() {
+        if (confirm('Apakah Anda yakin ingin menghapus item ini?')) {
+            document.getElementById('deleteForm').submit();
+        } else {
+            return false; // Mencegah form submit jika pengguna memilih "Batal"
+        }
+    }
+</script>
