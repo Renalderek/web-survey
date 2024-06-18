@@ -41,6 +41,8 @@ Route::get('/user/layanan', [UserController::class, 'showLayananForm'])->name('u
 Route::post('/user/layanan', [UserController::class, 'submitLayanan'])->name('user.layanan.submit');
 Route::get('/user/kuisioner', [UserController::class, 'showKuisionerForm'])->name('user.kuisioner');
 Route::post('/user/kuisioner', [UserController::class, 'submitKuisioner'])->name('user.kuisioner.submit');
+
+// admin login
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
@@ -49,10 +51,12 @@ Route::middleware(['auth:admin'])->group(function () {
     //admin
     // bidang routes
 
-    Route::get('/admin/bidang/{id}/edit', [AdminController::class, 'editBidang'])->name('admin.bidang.edit');
-    Route::put('/admin/bidang/{id}', [AdminController::class, 'updateBidang'])->name('admin.bidang.update');
+    
+    
     Route::get('/admin/bidang', [AdminController::class, 'showBidangForm'])->name('admin.bidang');
     Route::post('/admin/bidang', [AdminController::class, 'storeBidang'])->name('admin.bidang.store');
+    Route::get('/admin/bidang/{id}/edit', [AdminController::class, 'editBidang'])->name('admin.bidang.edit');
+    Route::put('/admin/bidang/{id}', [AdminController::class, 'updateBidang'])->name('admin.bidang.update');
     Route::delete('/admin/bidang/{id}', [AdminController::class, 'destroyBidang'])->name('admin.bidang.delete');
 
     // layanan routes
