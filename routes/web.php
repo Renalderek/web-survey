@@ -26,8 +26,6 @@ Route::prefix('user')->group(function () {
 });
 
 
-
-
 // user controller
 
 Route::get('/user/biodata', [UserController::class, 'showBiodataForm'])->name('user.biodata');

@@ -20,9 +20,4 @@ class AuthController extends Controller
         }
         return back()->withErrors(['username' => 'Invalid credentials']);
     }
-
-    public function dashboard()
-    {
-        return view('admin.dashboard');
-    }
 }
