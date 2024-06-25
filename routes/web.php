@@ -69,5 +69,7 @@ Route::delete('admin/kuisioner/{id}', [KuisionerController::class, 'destroyKuisi
 //  grafik route
 
 
-Route::get('/admin/grafik', [ChartController::class, 'index'])->name('admin.grafik');
+// Route::get('/admin/grafik', [ChartController::class, 'index'])->name('admin.grafik');
+Route::get('/admin/grafik', [ChartController::class, 'showPekerjaanGrafik'])->name('admin.grafik');
+
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

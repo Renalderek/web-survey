@@ -53,7 +53,16 @@
                                     <label id="pekerjaan" name="pekerjaan" class="col-sm-2 col-form-label">Pekerjaan
                                     </label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="pekerjaan" name="pekerjaan">
+                                        <select class="form-control" id="pekerjaan" name="pekerjaan">
+                                            <option value="" disabled selected>Pilih Pekerjaan</option>
+                                            <option value="pns">PNS</option>
+                                            <option value="swasta">Swasta</option>
+                                            <option value="ibu rumah tangga">Ibu Rumah Tangga</option>
+                                            <option value="tni/polri">TNI/POLRI</option>
+                                            <option value="wiraswasta">Wiraswasta</option>
+                                            <option value="mahasiswa">Mahasiswa</option>
+                                            <option value="wartawan">Wartawan</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="text-center">

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\JawabanKuisioner;
+use Illuminate\Support\Facades\DB;
 
 class ChartController extends Controller
 {
@@ -26,5 +28,13 @@ class ChartController extends Controller
             'jawabanData' => $jawabanCount,
             'userJawabanData' => $userJawabanCount
         ]);
+    }
+    public function showPekerjaanGrafik()
+    {
+        $pekerjaanData = User::select('pekerjaan', DB::raw('count(*) as total'))
+            ->groupBy('pekerjaan')
+            ->pluck('total', 'pekerjaan');
+
+        return view('admin.grafik', compact('pekerjaanData'));
     }
 }

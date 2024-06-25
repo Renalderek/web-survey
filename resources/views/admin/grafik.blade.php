@@ -5,7 +5,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Grafik Jawaban Kuisioner</h1>
+        <h1>Grafik Pengguna Berdasarkan Pekerjaan</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
@@ -20,10 +20,11 @@
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <div class="card">
-                            <div class="card-header">Grafik Jawaban Kuisioner</div>
+                            <div class="card-header">Grafik Pengguna Berdasarkan Pekerjaan</div>
 
                             <div class="card-body">
-                                <canvas id="jawabanKuisionerChart"></canvas>
+                                <canvas id="pekerjaanChart"></canvas>
+                                <button id="printPDF" class="btn btn-primary mt-3">Cetak PDF</button>
                             </div>
                         </div>
                     </div>
@@ -37,32 +38,46 @@
 @include('admin.footer')
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var ctx = document.getElementById('jawabanKuisionerChart').getContext('2d');
+        var ctx = document.getElementById('pekerjaanChart').getContext('2d');
 
-        var jawabanLabels = {!! json_encode($jawabanData->keys()) !!};
-        var jawabanValues = {!! json_encode($jawabanData->values()) !!};
+        var pekerjaanLabels = {!! json_encode($pekerjaanData->keys()) !!};
+        var pekerjaanValues = {!! json_encode($pekerjaanData->values()) !!};
 
-        var userJawabanLabels = {!! json_encode($userJawabanData->keys()) !!};
-        var userJawabanValues = {!! json_encode($userJawabanData->values()) !!};
+        // Define colors for each job
+        var backgroundColors = [
+            'rgba(255, 99, 132, 0.2)', // PNS
+            'rgba(54, 162, 235, 0.2)', // Swasta
+            'rgba(255, 206, 86, 0.2)', // Ibu Rumah Tangga
+            'rgba(75, 192, 192, 0.2)', // TNI/POLRI
+            'rgba(153, 102, 255, 0.2)', // Wiraswasta
+            'rgba(255, 159, 64, 0.2)', // Mahasiswa
+            'rgba(201, 203, 207, 0.2)' // Wartawan
+        ];
 
-        var jawabanKuisionerChart = new Chart(ctx, {
-            type: 'line',
+        var borderColors = [
+            'rgba(255, 99, 132, 1)', // PNS
+            'rgba(54, 162, 235, 1)', // Swasta
+            'rgba(255, 206, 86, 1)', // Ibu Rumah Tangga
+            'rgba(75, 192, 192, 1)', // TNI/POLRI
+            'rgba(153, 102, 255, 1)', // Wiraswasta
+            'rgba(255, 159, 64, 1)', // Mahasiswa
+            'rgba(201, 203, 207, 1)' // Wartawan
+        ];
+
+        var pekerjaanChart = new Chart(ctx, {
+            type: 'bar',
             data: {
-                labels: jawabanLabels,
+                labels: pekerjaanLabels,
                 datasets: [{
-                    label: 'Jumlah Jawaban',
-                    data: jawabanValues,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    fill: false,
-                    tension: 0.1
-                }, {
                     label: 'Jumlah Pengguna',
-                    data: userJawabanValues,
-                    borderColor: 'rgba(153, 102, 255, 1)',
-                    fill: false,
-                    tension: 0.1
+                    data: pekerjaanValues,
+                    backgroundColor: backgroundColors,
+                    borderColor: borderColors,
+                    borderWidth: 1
                 }]
             },
             options: {
@@ -72,6 +87,15 @@
                     }
                 }
             }
+        });
+
+        document.getElementById('printPDF').addEventListener('click', function() {
+            domtoimage.toPng(document.getElementById('pekerjaanChart'))
+                .then(function(blob) {
+                    var pdf = new jspdf.jsPDF('landscape');
+                    pdf.addImage(blob, 'PNG', 10, 10, 280, 150);
+                    pdf.save('grafik-pekerjaan.pdf');
+                });
         });
     });
 </script>

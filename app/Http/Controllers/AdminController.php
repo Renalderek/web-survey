@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use DB;
 use Log;
 use App\Models\Bidang;
 use App\Models\Layanan;
